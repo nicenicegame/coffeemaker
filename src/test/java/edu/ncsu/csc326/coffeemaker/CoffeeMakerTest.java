@@ -92,6 +92,11 @@ public class CoffeeMakerTest {
         recipe4.setPrice("65");
     }
 
+    /**
+     * Given a coffee maker with no recipe in recipe book
+     * When we add recipes
+     * Then the recipes should be added to the recipe book of coffee maker
+     */
     @Test
     public void testAddRecipe() {
         coffeeMaker.addRecipe(recipe1);
@@ -102,6 +107,11 @@ public class CoffeeMakerTest {
         assertEquals(recipe3, coffeeMaker.getRecipes()[2]);
     }
 
+    /**
+     * Given a recipe book of coffee maker already have 3 recipes
+     * When we add a recipe
+     * Then the recipe should not be added
+     */
     @Test
     public void testAddRecipeMoreThanThree() {
         assertTrue(coffeeMaker.addRecipe(recipe1));
@@ -111,6 +121,11 @@ public class CoffeeMakerTest {
         assertFalse(coffeeMaker.addRecipe(recipe4));
     }
 
+    /**
+     * Given a recipe book of coffee maker has a recipe
+     * When we add the same recipe which is the one that already existed
+     * Then the recipe should not be added
+     */
     @Test
     public void testAddDuplicateRecipe() {
         coffeeMaker.addRecipe(recipe1);
@@ -120,6 +135,11 @@ public class CoffeeMakerTest {
         assertNull(coffeeMaker.getRecipes()[1]);
     }
 
+    /**
+     * Given a recipe book of coffee maker has a recipe
+     * When we select recipe to delete by its index
+     * Then the selected recipe should be deleted and return its name
+     */
     @Test
     public void testDeleteRecipe() {
         coffeeMaker.addRecipe(recipe3);
@@ -129,16 +149,25 @@ public class CoffeeMakerTest {
         assertNull(coffeeMaker.getRecipes()[0]);
     }
 
+    /**
+     * Given the selected recipe index doesn't match any recipes
+     * When we select that index to delete
+     * Then nothing will happen and return null
+     */
     @Test
     public void testDeleteNonExistingRecipe() {
         assertNull(coffeeMaker.deleteRecipe(0));
-
         coffeeMaker.addRecipe(recipe2);
         assertEquals(recipe2.getName(), coffeeMaker.deleteRecipe(0));
         // The deleted recipe doesn't exist
         assertNull(coffeeMaker.deleteRecipe(0));
     }
 
+    /**
+     * Given a recipe in recipe book of coffee maker
+     * When we selected its index to edit and define a new recipe
+     * Then the new recipe will be replaced and return the old one's name
+     */
     @Test
     public void testEditRecipe() {
         coffeeMaker.addRecipe(recipe3);
@@ -148,10 +177,14 @@ public class CoffeeMakerTest {
         assertEquals(recipe1, coffeeMaker.getRecipes()[0]);
     }
 
+    /**
+     * Given the selected recipe index doesn't match any recipes
+     * When select that index to edit and define a new recipe
+     * Then nothing will happen, there will be no replacement and return null
+     */
     @Test
     public void testEditNonExistingRecipe() {
         assertNull(coffeeMaker.editRecipe(0, recipe4));
-
         coffeeMaker.addRecipe(recipe4);
         assertEquals(recipe4.getName(), coffeeMaker.deleteRecipe(0));
         assertNull(coffeeMaker.getRecipes()[0]);
@@ -163,7 +196,7 @@ public class CoffeeMakerTest {
      * When we add inventory with well-formed quantities
      * Then we do not get an exception trying to read the inventory quantities.
      *
-     * @throws InventoryException if there was an error parsing the quanity
+     * @throws InventoryException if there was an error parsing the quantity
      *                            to a positive integer.
      */
     @Test
@@ -179,7 +212,7 @@ public class CoffeeMakerTest {
      * quantity and a non-numeric string)
      * Then we get an inventory exception
      *
-     * @throws InventoryException if there was an error parsing the quanity
+     * @throws InventoryException if there was an error parsing the quantity
      *                            to a positive integer.
      */
     @Test(expected = InventoryException.class)
@@ -189,6 +222,15 @@ public class CoffeeMakerTest {
         coffeeMaker.addInventory("one", "two", "three", "four");
     }
 
+    /**
+     * Given a coffee maker with default inventory
+     * When we add valid inventory quantities to see if its change
+     * Then we do not get an exception and the inventory quantities
+     * will be updated correctly
+     *
+     * @throws InventoryException if there was an error parsing the quantity
+     *                            to a positive integer.
+     */
     @Test
     public void testCheckInventory() throws InventoryException {
         // Initial amount should be 15
@@ -199,6 +241,14 @@ public class CoffeeMakerTest {
         assertEquals(inventoryString, coffeeMaker.checkInventory());
     }
 
+    /**
+     * Given a coffee maker with default inventory
+     * When we add invalid inventory quantities to see if its doesn't change
+     * Then we get an exception and the inventory quantities won't be updated
+     *
+     * @throws InventoryException if there was an error parsing the quantity
+     *                            to a positive integer.
+     */
     @Test(expected = InventoryException.class)
     public void testCheckInventoryException() throws InventoryException {
         String inventoryString = "Coffee: 15\nMilk: 15\nSugar: 15\nChocolate: 15\n";
@@ -218,12 +268,24 @@ public class CoffeeMakerTest {
         assertEquals(25, coffeeMaker.makeCoffee(0, 75));
     }
 
+    /**
+     * Given a coffee maker with one valid recipe
+     * When we make coffee, selecting the valid recipe and paying less than
+     * the coffee costs
+     * Then we get the change as same as paid amount and fail purchasing
+     */
     @Test
     public void testMakeCoffeeWithNotEnoughMoney() {
         coffeeMaker.addRecipe(recipe4);
         assertEquals(50, coffeeMaker.makeCoffee(0, 50));
     }
 
+    /**
+     * Given a coffee maker with one valid recipe
+     * When we make coffee, selecting the recipe which
+     * require ingredients more than we have
+     * Then we get the change as same as paid amount and fail purchasing
+     */
     @Test
     public void testMakeCoffeeWithNotEnoughInventory() {
         coffeeMaker.addRecipe(recipe2);
