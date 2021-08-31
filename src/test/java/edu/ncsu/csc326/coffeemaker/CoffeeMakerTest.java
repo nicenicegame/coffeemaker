@@ -155,7 +155,7 @@ public class CoffeeMakerTest {
      * Then nothing will happen and return null
      */
     @Test
-    public void testDeleteNonExistingRecipe() {
+    public void testDeleteNonExistentRecipe() {
         assertNull(coffeeMaker.deleteRecipe(0));
         coffeeMaker.addRecipe(recipe2);
         assertEquals(recipe2.getName(), coffeeMaker.deleteRecipe(0));
@@ -183,7 +183,7 @@ public class CoffeeMakerTest {
      * Then nothing will happen, there will be no replacement and return null
      */
     @Test
-    public void testEditNonExistingRecipe() {
+    public void testEditNonExistentRecipe() {
         assertNull(coffeeMaker.editRecipe(0, recipe4));
         coffeeMaker.addRecipe(recipe4);
         assertEquals(recipe4.getName(), coffeeMaker.deleteRecipe(0));
@@ -290,5 +290,15 @@ public class CoffeeMakerTest {
     public void testMakeCoffeeWithNotEnoughInventory() {
         coffeeMaker.addRecipe(recipe2);
         assertEquals(100, coffeeMaker.makeCoffee(0, 100));
+    }
+
+    /**
+     * Given we select the recipe that doesn't exist
+     * When we purchase coffee with that recipe
+     * Then we get the change as same as paid amount and fail purchasing
+     */
+    @Test
+    public void testMakeCoffeeWithNonExistentRecipe() {
+        assertEquals(100, coffeeMaker.makeCoffee(1, 100));
     }
 }
