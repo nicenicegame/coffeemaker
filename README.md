@@ -1,5 +1,9 @@
 CoffeeMaker JUnit - Buggy Version
 =================================
+
+* [Test Cases](../../wiki/Test-Cases)
+* [Requirements Traceability Matrix](../../wiki/Requirements-Traceability-Matrix)
+
 In this assignment, you'll get some practice at building effective unit tests on a slightly larger example of a coffee maker. The coffee maker allows you to set up recipes, add ingredients, and to make one of several beverages, provided that you insert enough money. It is an often-used pedagogical example from our colleague [Laurie Williams](https://www.csc.ncsu.edu/people/lawilli3) at NC State University. A list of the user stories (requirements) and use cases are included in the `Requirements-CoffeeMaker.pdf` file.
 
 Below, are instructions to get you started.  We describe the prerequisites and provide instructions for building and running the tests.  We also include information about the directory structure provided.
