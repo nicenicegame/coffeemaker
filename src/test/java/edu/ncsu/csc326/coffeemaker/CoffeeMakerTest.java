@@ -44,6 +44,39 @@ public class CoffeeMakerTest {
     private Recipe recipe4;
 
     /**
+     * Utility function for create a recipe object with given name,
+     * amount of chocolate, amount of coffee, amount of milk,
+     * amount of sugar, and the price
+     *
+     * @param name      of the recipe
+     * @param chocolate amount
+     * @param coffee    amount
+     * @param milk      amount
+     * @param sugar     amount
+     * @param price     of the recipe
+     * @return recipe object of given parameters
+     * @throws RecipeException if invalid string of
+     *                         number cannot be parsed to integer
+     */
+    public static Recipe createRecipe(
+            String name,
+            String chocolate,
+            String coffee,
+            String milk,
+            String sugar,
+            String price
+    ) throws RecipeException {
+        Recipe recipe = new Recipe();
+        recipe.setName(name);
+        recipe.setAmtChocolate(chocolate);
+        recipe.setAmtCoffee(coffee);
+        recipe.setAmtMilk(milk);
+        recipe.setAmtSugar(sugar);
+        recipe.setPrice(price);
+        return recipe;
+    }
+
+    /**
      * Initializes some recipes to test with and the {@link CoffeeMaker}
      * object we wish to test.
      *
@@ -65,24 +98,6 @@ public class CoffeeMakerTest {
 
         //Set up for recipe4
         recipe4 = createRecipe("Hot Chocolate", "4", "0", "1", "1", "65");
-    }
-
-    public static Recipe createRecipe(
-            String name,
-            String chocolate,
-            String coffee,
-            String milk,
-            String sugar,
-            String price
-    ) throws RecipeException {
-        Recipe recipe = new Recipe();
-        recipe.setName(name);
-        recipe.setAmtChocolate(chocolate);
-        recipe.setAmtCoffee(coffee);
-        recipe.setAmtMilk(milk);
-        recipe.setAmtSugar(sugar);
-        recipe.setPrice(price);
-        return recipe;
     }
 
     /**
